@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from predictor import Data
 import os, requests, base64, ast, json
 
 
@@ -71,16 +72,15 @@ def tweet_request():
                'User-Agent': 'TweetMapHackEmory',
                'Authorization': "Bearer " + access_token}
 
-    tweets = requests.get("https://api.twitter.com/1.1/search/tweets.json?q=%20&geocode=" + lat + "," + long + ",50mi",
+    tweets = requests.get("https://api.twitter.com/1.1/search/tweets.json?q=%20&geocode=" + lat + "," + long + ",50mi&count=100",
                           headers=headers)
 
     tweet_dict = json.loads(tweets.content.decode('ascii'))
 
-    # print("NUM TWEETS FOUND: " + str(len(tweet_dict['statuses'])))
-
-    # TODO here we pass tweet_dict to the NLP algorithm, and return jsonify(results)
-
-    return jsonify(tweet_dict)
+    print("NUM TWEETS FOUND: " + str(len(tweet_dict['statuses'])))
+    obj = Data()
+    ret_val = obj.evalFromJson(tweet_dict)
+    return jsonify(ret_val)
 
 
 #Returns the rate_limit for the Twitter API, or various error values associated with OAuth
