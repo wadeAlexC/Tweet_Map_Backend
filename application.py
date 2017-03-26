@@ -43,8 +43,20 @@ def index():
     return "Hello, world! Up and running!"
 
 
-@application.route('/location/<float:lat>/<float:long>', methods=['GET'])
-def tweet_request(lat, long):
+@application.route('/location/<float:lat>/-<float:long>')
+def ind(lat, long):
+    return "tasd"
+
+
+# JSON structure:
+# {"latitude": "####", "longitude": "####"}
+@application.route('/location', methods=['POST'])
+def tweet_request():
+    lat = request.json['latitude']
+    long = request.json['longitude']
+    print(str(lat))
+    print(str(long))
+
     #First, check auth status:
     ratelimit = get_rate_limit()
 
@@ -59,7 +71,7 @@ def tweet_request(lat, long):
                'User-Agent': 'TweetMapHackEmory',
                'Authorization': "Bearer " + access_token}
 
-    tweets = requests.get("https://api.twitter.com/1.1/search/tweets.json?q=%20&geocode=" + str(lat) + "," + str(long) + ",50mi",
+    tweets = requests.get("https://api.twitter.com/1.1/search/tweets.json?q=%20&geocode=" + lat + "," + long + ",50mi",
                           headers=headers)
 
     tweet_dict = json.loads(tweets.content.decode('ascii'))
