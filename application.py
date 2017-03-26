@@ -59,7 +59,7 @@ def tweet_request(lat, long):
                'User-Agent': 'TweetMapHackEmory',
                'Authorization': "Bearer " + access_token}
 
-    tweets = requests.get("https://api.twitter.com/1.1/search/tweets.json?q=%20&geocode=33.792341,-84.325308,50mi",
+    tweets = requests.get("https://api.twitter.com/1.1/search/tweets.json?q=%20&geocode=" + str(lat) + "," + str(long) + ",50mi",
                           headers=headers)
 
     tweet_dict = json.loads(tweets.content.decode('ascii'))
