@@ -53,7 +53,7 @@ class Data:
     def eval(self):
         if not self.weights:
             #self.weights=json.load(open("weights.txt"))
-            with open('weights.txt', 'rb') as handle:
+            with open('weightsBigrams.txt', 'rb') as handle:
                 self.weights = pickle.loads(handle.read())
         evaluated=list()
         #read tweets from Twitter
