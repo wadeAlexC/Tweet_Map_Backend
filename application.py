@@ -48,13 +48,12 @@ def tweet_request(lat, long):
     #First, check auth status:
     ratelimit = get_rate_limit()
 
+    access_token = authenticate()  # Try to reauthenticate
+
     if ratelimit == -1:
         return jsonify({"status":400, "message":"Too many requests have been processed and the Twitter API ratelimit has expired."})
     elif ratelimit == -2:
         return jsonify({"status":401, "message":"Bad Auth Data"})
-    elif ratelimit == -3:
-        access_token = authenticate() # Try to reauthenticate
-
 
     headers = {'host': 'api.twitter.com',
                'User-Agent': 'TweetMapHackEmory',
@@ -83,10 +82,7 @@ def get_rate_limit():
     ret_dict = json.loads(ret.content.decode('ascii'))
 
     if 'errors' in ret_dict:
-        if ret_dict['errors'][0]['code'] == 89:
-            return -3 # Triggers a reauthentication
-        else:
-            return -2 # Error val for a bad request
+        return -2
     elif 'resources' in ret_dict:
         remaining_rate_limit = ret_dict['resources']['search']['/search/tweets']['remaining']
         if remaining_rate_limit <= 0:
