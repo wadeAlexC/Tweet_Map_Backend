@@ -18,10 +18,10 @@ Hackathon devpost: https://devpost.com/software/tweet_map_backend
 
 <strong>Contributors:</strong>
 
-github.com/Jomax100 : NLP algorithm and training model
+https://github.com/Jomax100 : NLP algorithm and training model
 
-github.com/apongos : Data Mining and Clustering of data
+https://github.com/apongos : Data Mining and Clustering of data
 
-github.com/wadeAlexC : Backend written in Python using Flask, coordinated linking of backend and frontend as well as integration of NLP algorithm into backend code
+https://github.com/wadeAlexC : Backend written in Python using Flask, coordinated linking of backend and frontend as well as integration of NLP algorithm into backend code
 
 https://github.com/coriandres : Frontend written in HTML, CSS, and native JS. Utilized Google APIS to present and send data.
